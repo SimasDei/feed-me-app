@@ -1,0 +1,24 @@
+{
+  "name": "feed-me-app",
+  "version": "1.0.0",
+  "description": "I'm a README, look at me! \\o/",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimasDei/feed-me-app.git"
+  },
+  "author": "Simas Dei",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SimasDei/feed-me-app/issues"
+  },
+  "homepage": "https://github.com/SimasDei/feed-me-app#readme",
+  "devDependencies": {
+    "webpack": "^4.29.5",
+    "webpack-cli": "^3.2.3"
+  }
+}
