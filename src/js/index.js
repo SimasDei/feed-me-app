@@ -1,6 +1,6 @@
 import Search from './models/Search';
 import * as searchView from './views/searchView';
-import { elements } from './views/base';
+import { elements, renderLoader, clearLoader } from './views/base';
 /**
  * @param {object}  state -
  * saves some current app features
@@ -23,12 +23,15 @@ const controlSearch = async () => {
     state.search = new Search(query);
 
     // #3 Prepare UI for result (load spinner)
-
+    searchView.clearInput();
+    searchView.clearResults();
+    renderLoader(elements.searchResults);
     // #4 Send the API request adn get results, await results
     await state.search.getResults();
 
     // #5 Render results to the UI
     searchView.renderResults(state.search.result);
+    clearLoader();
   }
 };
 

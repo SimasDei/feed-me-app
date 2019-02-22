@@ -187,7 +187,7 @@ body {
 .loader svg {
   height: 5.5rem;
   width: 5.5rem;
-  fill: #00dbde;
+  fill: #fc00ff;
   transform-origin: 44% 50%;
   animation: rotate 1.5s infinite linear;
 }
@@ -543,7 +543,7 @@ body {
 .shopping__list {
   list-style: none;
   max-height: 77rem;
-  overflow: scroll;
+  overflow: hidden;
 }
 .shopping__item {
   display: flex;
