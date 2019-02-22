@@ -1,20 +1,38 @@
-import axios from 'axios';
+import Search from './models/Search';
+import * as searchView from './views/searchView';
+import { elements } from './views/base';
 /**
- * Food 2 Fork API info
- * API key - 7a6a0bb3542336e661927eee7ef879cb
- * Get path - https://www.food2fork.com/api/search
+ * @param {object}  state -
+ * saves some current app features
+ * @property {object} search -
+ * current recipe search object
+ *
  */
-async function getResults(query) {
-  const apiKey = '7a6a0bb3542336e661927eee7ef879cb';
-  try {
-    const result = await axios(
-      `https://www.food2fork.com/api/search?key=${apiKey}&q=${query}`
-    );
-    const recipes = result.data.recipes;
-    console.log(recipes);
-  } catch (error) {
-    throw error;
-  }
-}
+const state = {};
 
-getResults('cake');
+const controlSearch = async () => {
+  // #1 - Get query from the view | user input
+  /**
+   * @TODO - implement dynamic query
+   * @param {string} query - user input
+   */
+  const query = searchView.getInput();
+
+  if (query) {
+    // #2 new Search Object, add it to State
+    state.search = new Search(query);
+
+    // #3 Prepare UI for result (load spinner)
+
+    // #4 Send the API request adn get results, await results
+    await state.search.getResults();
+
+    // #5 Render results to the UI
+    searchView.renderResults(state.search.result);
+  }
+};
+
+elements.searchForm.addEventListener('submit', e => {
+  e.preventDefault();
+  controlSearch();
+});
