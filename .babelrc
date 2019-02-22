@@ -1,0 +1,10 @@
+{
+  "preset": [
+    "env",
+    {
+      "target": {
+        "browsers": ["last 3 versions", "ie >= 9"]
+      }
+    }
+  ]
+}
