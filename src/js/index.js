@@ -1,15 +1,20 @@
 import Search from './models/Search';
+import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
 import { elements, renderLoader, clearLoader } from './views/base';
 /**
  * @param {object}  state -
  * saves some current app features
- * @property {object} search -
- * current recipe search object
- *
  */
 const state = {};
 
+/**
+ * @controller - Search Controller
+ * @param {function} controlSearch -
+ * take User input and use it to make an axios request to
+ * food2fork api
+ * render the results to the searchView
+ */
 const controlSearch = async () => {
   // #1 - Get query from the view | user input
   /**
@@ -48,3 +53,13 @@ elements.searchResultPages.addEventListener('click', e => {
     searchView.renderResults(state.search.result, goToPage);
   }
 });
+/**
+ * Search Controller End
+ */
+
+/**
+ * @controller - Recipe Controller
+ */
+const r = new Recipe(35354);
+r.getRecipe();
+console.log(r);

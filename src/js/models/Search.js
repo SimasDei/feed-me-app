@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { apiKey } from '../config';
 /**
  * Food 2 Fork API info
  * API key - 7a6a0bb3542336e661927eee7ef879cb
@@ -10,7 +11,6 @@ export default class Search {
   }
 
   async getResults() {
-    const apiKey = '7a6a0bb3542336e661927eee7ef879cb';
     try {
       const result = await axios(
         `https://www.food2fork.com/api/search?key=${apiKey}&q=${this.query}`
