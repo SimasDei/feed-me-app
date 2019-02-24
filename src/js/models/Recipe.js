@@ -74,6 +74,20 @@ export default class Recipe {
       let objectIngredient;
       if (unitIndex > -1) {
         // Unit Found
+        // E.g. 4 cups = [4]
+        // E.g. 4 1/2 cups = [4, 1/2] ==> eval("4 + 1/2")
+        const arrayCount = ingredientArray.slice(0, unitIndex);
+        let count;
+        if (arrayCount.length === 1) {
+          count = eval(ingredientArray[0].replace('-', '+'));
+        } else {
+          count = eval(ingredientArray.slice(0, unitIndex).join('+'));
+        }
+        objectIngredient = {
+          count,
+          unit: ingredientArray[unitIndex],
+          ingredient: ingredientArray.slice(unitIndex + 1).join(' ')
+        };
       } else if (parseInt(ingredientArray[0], 10)) {
         // No unit, but 1st element is a number
         objectIngredient = {
@@ -89,7 +103,6 @@ export default class Recipe {
           ingredient
         };
       }
-      console.log(objectIngredient);
       return objectIngredient;
     });
     this.ingredients = newIngredients;

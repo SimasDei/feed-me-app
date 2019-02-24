@@ -1,6 +1,7 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import * as searchView from './views/searchView';
+import * as recipeView from './views/recipeView';
 import { elements, renderLoader, clearLoader } from './views/base';
 /**
  * @param {object}  state -
@@ -75,20 +76,14 @@ const controlRecipe = async () => {
   if (id) {
     // Prepare UI for changes
 
-    // Create new Recipe Object
+    // Create new Recipe Object and parse Ingredients
     state.recipe = new Recipe(id);
-
-    /**
-     * @test - For testing purposes
-     */
-    window.r = state.recipe;
-    /**
-     * @test - test end
-     */
 
     // Get Recipe Data
     try {
+      // Get data and parse ingredients
       await state.recipe.getRecipe();
+      state.recipe.parseIngredients();
       // Call calculation functions
       state.recipe.calcTime();
       state.recipe.calcServings();
