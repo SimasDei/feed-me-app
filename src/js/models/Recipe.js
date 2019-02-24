@@ -38,10 +38,10 @@ export default class Recipe {
     const unitsLong = [
       'tablespoons',
       'tablespoon',
-      'ounce',
       'ounces',
-      'teaspoon',
+      'ounce',
       'teaspoons',
+      'teaspoon',
       'cups',
       'pounds'
     ];

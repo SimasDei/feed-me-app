@@ -32,13 +32,19 @@ const controlSearch = async () => {
     searchView.clearResults();
     renderLoader(elements.searchResults);
 
-    // #4 Send the API request, await results
-
-    await state.search.getResults();
-
-    // #5 Render results to the UI
-    searchView.renderResults(state.search.result);
-    clearLoader();
+    try {
+      // #4 Send the API request, await results
+      await state.search.getResults();
+      // #5 Render results to the UI
+      searchView.renderResults(state.search.result);
+      clearLoader();
+    } catch (error) {
+      clearLoader();
+      throw {
+        error,
+        message: 'Error fetching data from API, might be at API Call Limit'
+      };
+    }
   }
 };
 
@@ -56,7 +62,7 @@ elements.searchResultPages.addEventListener('click', e => {
   }
 });
 /**
- * Search Controller End
+ * @controller - Search End
  */
 
 /**
@@ -72,6 +78,14 @@ const controlRecipe = async () => {
     // Create new Recipe Object
     state.recipe = new Recipe(id);
 
+    /**
+     * @test - For testing purposes
+     */
+    window.r = state.recipe;
+    /**
+     * @test - test end
+     */
+
     // Get Recipe Data
     try {
       await state.recipe.getRecipe();
@@ -81,10 +95,16 @@ const controlRecipe = async () => {
       // Render the Recipe
       console.log(state.recipe);
     } catch (error) {
-      throw error;
+      throw {
+        error,
+        message: 'Error fetching Recipe Data, might be at API Call limit'
+      };
     }
   }
 };
 ['hashchange', 'load'].forEach(event =>
   window.addEventListener(event, controlRecipe)
 );
+/**
+ * @controller - Recipe END
+ */
