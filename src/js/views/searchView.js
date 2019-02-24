@@ -8,6 +8,17 @@ export const clearResults = () => {
   elements.searchResultList.innerHTML = '';
   elements.searchResultPages.innerHTML = '';
 };
+export const highlightSelected = id => {
+  // Remove previous selection
+  const resultsArray = Array.from(document.querySelectorAll('.results__link'));
+  resultsArray.forEach(element => {
+    element.classList.remove('results__link--active');
+  });
+  document
+    // might need to add a '*' in href=, eg href*=
+    .querySelector(`a[href="#${id}"]`)
+    .classList.add('results__link--active');
+};
 
 const limitRecipeTitle = (title, limit = 17) => {
   const newTitle = [];

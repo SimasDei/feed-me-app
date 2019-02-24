@@ -76,6 +76,10 @@ const controlRecipe = async () => {
     // Prepare UI for changes
     recipeView.clearRecipe();
     renderLoader(elements.recipe);
+
+    // Highlight Selected Search Item
+    if (state.search) searchView.highlightSelected(id);
+
     // Create new Recipe Object and parse Ingredients
     state.recipe = new Recipe(id);
 
