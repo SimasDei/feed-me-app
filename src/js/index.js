@@ -31,7 +31,9 @@ const controlSearch = async () => {
     searchView.clearInput();
     searchView.clearResults();
     renderLoader(elements.searchResults);
-    // #4 Send the API request adn get results, await results
+
+    // #4 Send the API request, await results
+
     await state.search.getResults();
 
     // #5 Render results to the UI
@@ -60,6 +62,29 @@ elements.searchResultPages.addEventListener('click', e => {
 /**
  * @controller - Recipe Controller
  */
-const r = new Recipe(35354);
-r.getRecipe();
-console.log(r);
+const controlRecipe = async () => {
+  // Get ID from window object. current URL
+  const id = window.location.hash.replace('#', '');
+  console.log(id);
+  if (id) {
+    // Prepare UI for changes
+
+    // Create new Recipe Object
+    state.recipe = new Recipe(id);
+
+    // Get Recipe Data
+    try {
+      await state.recipe.getRecipe();
+      // Call calculation functions
+      state.recipe.calcTime();
+      state.recipe.calcServings();
+      // Render the Recipe
+      console.log(state.recipe);
+    } catch (error) {
+      throw error;
+    }
+  }
+};
+['hashchange', 'load'].forEach(event =>
+  window.addEventListener(event, controlRecipe)
+);
