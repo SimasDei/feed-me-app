@@ -11,6 +11,8 @@ export default class List {
       unit,
       ingredient
     };
+    this.items.push(item);
+    return item;
   }
   deleteItem(id) {
     const index = this.items.findIndex(element => element.id === id);

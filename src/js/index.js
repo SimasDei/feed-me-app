@@ -107,6 +107,17 @@ const controlRecipe = async () => {
   window.addEventListener(event, controlRecipe)
 );
 
+/**
+ * @controller - Shopping List Controller
+ */
+const controlList = () => {
+  // Create new List if one does not exist
+};
+
+/**
+ * @controller - Shopping List End
+ */
+
 // Handle recipe Button Clicks
 elements.recipe.addEventListener('click', event => {
   if (event.target.matches('.btn-decrease, .btn-decrease *')) {
@@ -119,6 +130,8 @@ elements.recipe.addEventListener('click', event => {
     // Increase Button is clicked
     state.recipe.updateServings('inc');
     recipeView.updateServingsIngredients(state.recipe);
+  } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+    controlList();
   }
 });
 
