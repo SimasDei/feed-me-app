@@ -3,12 +3,14 @@ import Recipe from './models/Recipe';
 import List from './models/List';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
+import * as listView from './views/listView';
 import { elements, renderLoader, clearLoader } from './views/base';
 /**
  * @param {object}  state -
  * saves some current app features
  */
 const state = {};
+window.state = state;
 
 /**
  * @controller - Search Controller
@@ -103,21 +105,6 @@ const controlRecipe = async () => {
     }
   }
 };
-['hashchange', 'load'].forEach(event =>
-  window.addEventListener(event, controlRecipe)
-);
-
-/**
- * @controller - Shopping List Controller
- */
-const controlList = () => {
-  // Create new List if one does not exist
-};
-
-/**
- * @controller - Shopping List End
- */
-
 // Handle recipe Button Clicks
 elements.recipe.addEventListener('click', event => {
   if (event.target.matches('.btn-decrease, .btn-decrease *')) {
@@ -130,12 +117,54 @@ elements.recipe.addEventListener('click', event => {
     // Increase Button is clicked
     state.recipe.updateServings('inc');
     recipeView.updateServingsIngredients(state.recipe);
-  } else if (e.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+  } else if (event.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
     controlList();
   }
 });
-
-window.l = new List();
 /**
  * @controller - Recipe END
  */
+
+['hashchange', 'load'].forEach(event =>
+  window.addEventListener(event, controlRecipe)
+);
+
+/**
+ * @controller - Shopping List Controller
+ */
+const controlList = () => {
+  // Create new List if one does not exist
+  if (!state.list) state.list = new List();
+
+  // Add each ingredient to the list
+  state.recipe.ingredients.forEach(element => {
+    const item = state.list.addItem(
+      element.count,
+      element.unit,
+      element.ingredient
+    );
+    listView.renderItem(item);
+  });
+};
+
+// Handle delete and update list item Events
+elements.shopping.addEventListener('click', event => {
+  const id = event.target.closest('.shopping__item').dataset.itemId;
+
+  // Handle the Delete method
+  if (event.target.matches('.shopping__delete, .shopping__delete *')) {
+    // Delete from state
+    state.list.deleteItem(id);
+    // Delete from UI
+    listView.deleteItem(id);
+  } else if (event.target.matches('.shopping__count-value')) {
+    const val = parseFloat(event.target.value);
+    state.list.updateCount(id, val);
+  }
+});
+
+/**
+ * @controller - Shopping List End
+ */
+
+window.l = new List();
