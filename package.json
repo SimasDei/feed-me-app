@@ -7,7 +7,8 @@
     "start": "webpack-dev-server --mode development --open",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -18,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/SimasDei/feed-me-app/issues"
   },
-  "homepage": "https://github.com/SimasDei/feed-me-app#readme",
+  "homepage": "https://simasdei.github.io/feed-me-app",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-loader": "^7.0.0",
@@ -32,6 +33,7 @@
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "fractional": "^1.0.0",
+    "gh-pages": "^2.0.1",
     "uniqid": "^5.0.3"
   }
 }
