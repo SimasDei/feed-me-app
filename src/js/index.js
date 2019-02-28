@@ -12,7 +12,6 @@ import { elements, renderLoader, clearLoader } from './views/base';
  * saves some current app features
  */
 const state = {};
-window.state = state;
 
 /**
  * @controller - Search Controller
@@ -206,6 +205,14 @@ const controlLike = () => {
   }
   likesView.toggleLikeMenu(state.likes.getNumLikes());
 };
+
+// Restore liked recipe on page Load
+window.addEventListener('load', () => {
+  state.likes = new Likes();
+  state.likes.readStorage();
+  likesView.toggleLikeMenu(state.likes.getNumLikes());
+  state.likes.likes.forEach(like => likesView.renderLike(like));
+});
 /**
  * @controller - Like End
  */
