@@ -117,6 +117,7 @@ elements.recipe.addEventListener('click', event => {
     // Increase Button is clicked
     state.recipe.updateServings('inc');
     recipeView.updateServingsIngredients(state.recipe);
+    // Shopping cart button is clicked, load List Controller
   } else if (event.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
     controlList();
   }
@@ -149,7 +150,7 @@ const controlList = () => {
 
 // Handle delete and update list item Events
 elements.shopping.addEventListener('click', event => {
-  const id = event.target.closest('.shopping__item').dataset.itemId;
+  const id = event.target.closest('.shopping__item').dataset.itemid;
 
   // Handle the Delete method
   if (event.target.matches('.shopping__delete, .shopping__delete *')) {
@@ -157,6 +158,7 @@ elements.shopping.addEventListener('click', event => {
     state.list.deleteItem(id);
     // Delete from UI
     listView.deleteItem(id);
+    // Update ingredient count
   } else if (event.target.matches('.shopping__count-value')) {
     const val = parseFloat(event.target.value);
     state.list.updateCount(id, val);
