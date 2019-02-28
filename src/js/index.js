@@ -1,9 +1,11 @@
 import Search from './models/Search';
 import Recipe from './models/Recipe';
 import List from './models/List';
+import Likes from './models/Likes';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import * as listView from './views/listView';
+import * as likesView from './views/likesView';
 import { elements, renderLoader, clearLoader } from './views/base';
 /**
  * @param {object}  state -
@@ -97,6 +99,7 @@ const controlRecipe = async () => {
       // Render the Recipe
       clearLoader();
       recipeView.renderRecipe(state.recipe);
+      state.likes.isLiked(id);
     } catch (error) {
       throw {
         error,
@@ -190,16 +193,19 @@ const controlLike = () => {
       state.recipe.image
     );
     // Toggle the Like Button Style
-
+    likesView.toggleLikeBtn(true);
     // Add like to the UI list
+    likesView.renderLike(newLike);
   } else {
     // Recipe has been Liked
     // Remove like from state
     // Toggle Like button style
+    likesView.toggleLikeBtn(false);
+
     // Remove item from UI
   }
+  likesView.toggleLikeMenu(state.likes.getNumLikes());
 };
 /**
  * @controller - Like End
  */
-window.l = new List();

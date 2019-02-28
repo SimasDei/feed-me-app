@@ -16,7 +16,7 @@ export const highlightSelected = id => {
   });
   document
     // might need to add a '*' in href=, eg href*=
-    .querySelector(`a[href="#${id}"]`)
+    .querySelector(`.results__link[href*="#${id}"]`)
     .classList.add('results__link--active');
 };
 
