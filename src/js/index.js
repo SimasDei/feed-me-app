@@ -119,7 +119,11 @@ elements.recipe.addEventListener('click', event => {
     recipeView.updateServingsIngredients(state.recipe);
     // Shopping cart button is clicked, load List Controller
   } else if (event.target.matches('.recipe__btn--add, .recipe__btn--add *')) {
+    // Shopping list Controller
     controlList();
+  } else if (event.target.matches('.recipe__love, .recipe__love *')) {
+    // Like Controller
+    controlLike();
   }
 });
 /**
@@ -169,4 +173,33 @@ elements.shopping.addEventListener('click', event => {
  * @controller - Shopping List End
  */
 
+/**
+ * @controller - Like Controller
+ */
+const controlLike = () => {
+  if (!state.likes) state.likes = new Likes();
+  const currentID = state.recipe.id;
+
+  // Recipe not yet Liked
+  if (!state.likes.isLiked(currentID)) {
+    // Add like to the State
+    const newLike = state.likes.addLike(
+      currentID,
+      state.recipe.title,
+      state.recipe.author,
+      state.recipe.image
+    );
+    // Toggle the Like Button Style
+
+    // Add like to the UI list
+  } else {
+    // Recipe has been Liked
+    // Remove like from state
+    // Toggle Like button style
+    // Remove item from UI
+  }
+};
+/**
+ * @controller - Like End
+ */
 window.l = new List();
